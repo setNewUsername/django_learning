@@ -8,6 +8,7 @@
         <table>
         <thead>
             <tr>
+                <th>Logo</th>
                 <th>Ticker</th>
                 <th>Company</th>
                 <th>Last close price</th>
@@ -16,6 +17,11 @@
         <tbody>
             {% for stock in stocks %}
             <tr>
+                <td>
+                    {% if stock.logo %}
+                    <img src="{{ MEDIA_URL }}{{ stock.logo }}" width="40px">
+                    {% endif %}
+                </td>
                 <td>{{ stock.ticker }}</td>
                 <td>{{ stock.name }}</td>
                 <td>{{ stock.get_random_price }}{{ stock.currency.sign }}</td>
