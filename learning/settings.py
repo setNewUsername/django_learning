@@ -130,3 +130,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = BASE_DIR / 'mediafiles/'
 MEDIA_URL =  'media/'
+
+LOGIN_REDIRECT_URL = 'stock:account'
+LOGIN_URL = 'login'
