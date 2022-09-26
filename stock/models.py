@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 import random
 
@@ -22,3 +23,32 @@ class Currency(models.Model):
 
     def __str__(self):
         return self.sign
+
+class Account(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
+class AccountCurrency(models.Model):
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
+    amount = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ['account', 'currency']
+
+    def __str__(self):
+        return f'{self.account.user.username} {self.currency.sign}'
+
+class AccountStock(models.Model):
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
+    amount = models.IntegerField(default=0)
+    average_buy_cost = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=6)
+
+    class Meta:
+        unique_together = ['account', 'stock']
+        
+    def __str__(self):
+        return f'{self.account.user.username} {self.stock.ticker}'
