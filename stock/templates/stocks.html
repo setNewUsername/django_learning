@@ -1,31 +1,27 @@
-{% extends 'base.html' %}
-{% block content %}
-
+{% extends 'base.html' %} {% block content %}
 <table class="table">
-<thead>
+  <thead>
     <tr>
-        <th>Логотип</th>
-        <th>Тикер</th>
-        <th>Компания</th>
-        <th>Последняя цена</th>
+      <th>Лого</th>
+      <th>Тикер</th>
+      <th>Компания</th>
+      <th>Последний ценник</th>
     </tr>
-</thead>
-<tbody>
+  </thead>
+  <tbody>
     {% for stock in stocks %}
     <tr>
-        <td>
-            {% if stock.logo %}
-                <img src="{{ MEDIA_URL }}/{{ stock.logo }}" width="40" />
-            {% endif %}
-        </td>
-        <td>{{ stock.ticker }}</td>
-        <td>{{ stock.name }}</td>
-        <td>
-            {{ stock.get_random_price }}{{ stock.currency.sign}}
-            <a href="{% url 'stock:detail' stock.pk %}">Купить</a>
-        </td>
+      <td>
+        {% if stock.logo %}
+        <img src="{{ MEDIA_URL }}/{{ stock.logo }}" width="40" />
+      </td>
+      {% endif %}
+      <td>{{ stock.ticker }}</td>
+      <td>{{ stock.name }}</td>
+      <td>{{ stock.get_random_price }}{{ stock.currency.sign }}</td>
+      <td><a href="{% url 'stock:detail' stock.pk %}">Купить/Продать</a></td>
     </tr>
     {% endfor %}
-</tbody>
+  </tbody>
 </table>
 {% endblock %}
